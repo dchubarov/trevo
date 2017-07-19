@@ -1,6 +1,6 @@
 package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trevo.server.ToyServer;
+import net.chubarov.trevo.server.TrevoServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -46,11 +46,11 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
      * @param responseBody нулевой элемент массива заполняется ссылкой на строку содержащую тело ответа.
      * @return одно из значение {@link HttpStatus}, метод не должен возвращать {@code null}.
      */
-    protected abstract HttpStatus processHttpRequest(ToyServer server, Map<String, String> requestHeaders,
+    protected abstract HttpStatus processHttpRequest(TrevoServer server, Map<String, String> requestHeaders,
             String requestBody, Map<String, String> responseHeaders, String[] responseBody);
 
     @Override
-    protected final void processRequest(ToyServer server, BufferedReader requestReader,
+    protected final void processRequest(TrevoServer server, BufferedReader requestReader,
             BufferedWriter responseWriter) throws IOException {
 
         HttpStatus httpStatus;

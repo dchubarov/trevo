@@ -1,6 +1,6 @@
 package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trevo.server.ToyServer;
+import net.chubarov.trevo.server.TrevoServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -18,7 +18,7 @@ public class ShutdownRequestProcessor extends LineRequestProcessor {
     private static final Logger logger = Logger.getLogger(ShutdownRequestProcessor.class.getSimpleName());
 
     @Override
-    protected void processRequest(ToyServer server, BufferedReader requestReader,
+    protected void processRequest(TrevoServer server, BufferedReader requestReader,
             BufferedWriter responseWriter) throws IOException {
         String line = requestReader.readLine();
         if ("QUIT".equals(line)) {

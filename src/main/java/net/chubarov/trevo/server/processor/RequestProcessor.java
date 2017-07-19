@@ -1,6 +1,6 @@
 package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trevo.server.ToyServer;
+import net.chubarov.trevo.server.TrevoServer;
 
 import java.io.IOException;
 import java.net.Socket;
@@ -20,6 +20,6 @@ public interface RequestProcessor {
      * @param socket клиентский сокет для считывания данных и отсылки ответа.
      * @throws IOException если в процессе чтения/записи произошла ошибка.
      */
-    void process(ToyServer server, Socket socket) throws IOException;
+    void process(TrevoServer server, Socket socket) throws IOException;
 
 }

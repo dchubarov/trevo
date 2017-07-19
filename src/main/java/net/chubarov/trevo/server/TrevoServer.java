@@ -43,8 +43,8 @@ import java.util.logging.Logger;
  * @author Dmitry Chubarov
  * @since 1.0.0
  */
-public class ToyServer {
-    private static final Logger logger = Logger.getLogger(ToyServer.class.getSimpleName());
+public class TrevoServer {
+    private static final Logger logger = Logger.getLogger(TrevoServer.class.getSimpleName());
 
     private final Map<Integer, Supplier<RequestProcessor>> ports = new HashMap<>();
     private final AtomicBoolean shutdownRequested = new AtomicBoolean(false);
@@ -56,7 +56,7 @@ public class ToyServer {
      * Констуктор вызывается только построителем.
      * @see Builder
      */
-    ToyServer() { }
+    TrevoServer() { }
 
     /**
      * Выполняет запуск сервера.
@@ -150,10 +150,10 @@ public class ToyServer {
     }
 
     /**
-     * Используется для построения объектов {@link ToyServer}.
+     * Используется для построения объектов {@link TrevoServer}.
      */
     public static class Builder {
-        private ToyServer prototype;
+        private TrevoServer prototype;
 
         /**
          * Добавить слушатель порта к серверу.
@@ -194,10 +194,10 @@ public class ToyServer {
 
         /**
          * Выполняет построение сервера с заданными параметрами.
-         * @return новый экземпляр {@link ToyServer}.
+         * @return новый экземпляр {@link TrevoServer}.
          */
-        public ToyServer build() {
-            ToyServer instance = getPrototype();
+        public TrevoServer build() {
+            TrevoServer instance = getPrototype();
 
             // сервер не может работать не открывая портов
             if (instance.ports.isEmpty()) {
@@ -218,9 +218,9 @@ public class ToyServer {
             return instance;
         }
 
-        private ToyServer getPrototype() {
+        private TrevoServer getPrototype() {
             if (prototype == null) {
-                prototype = new ToyServer();
+                prototype = new TrevoServer();
             }
             return prototype;
         }
@@ -230,7 +230,7 @@ public class ToyServer {
         private final ServerSocket serverSocket;
         private final RequestProcessor requestProcessor;
 
-        ListenerThread(ToyServer server, ServerSocket serverSocket, RequestProcessor requestProcessor) {
+        ListenerThread(TrevoServer server, ServerSocket serverSocket, RequestProcessor requestProcessor) {
             this.serverSocket = Objects.requireNonNull(serverSocket);
             this.requestProcessor = Objects.requireNonNull(requestProcessor);
             setName(getClass().getSimpleName() + "-" + serverSocket.getLocalPort());
@@ -247,7 +247,7 @@ public class ToyServer {
                         logger.log(Level.FINE, "Получен запрос от " + socket);
                         executorService.submit(() -> {
                             try {
-                                requestProcessor.process(ToyServer.this, socket);
+                                requestProcessor.process(TrevoServer.this, socket);
                             } catch (Throwable e) {
                                 logger.log(Level.WARNING, "Ошибка при обработке запроса.", e);
                             } finally {
