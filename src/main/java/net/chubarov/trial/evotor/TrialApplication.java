@@ -60,11 +60,11 @@ public class TrialApplication {
 
         // добавляем слушателей HTTP портов
         String httpPorts = configuration.getProperty("server.port.api");
-        if (httpPorts == null || httpPorts.isEmpty()) {
-            serverBuilder.listen(DEFAULT_HTTP_PORT, ApiRequestProcessor::new);
-        } else {
+        if (httpPorts != null && !httpPorts.isEmpty()) {
             Stream.of(httpPorts.split(",")).mapToInt(Integer::parseInt)
                     .forEach(p -> serverBuilder.listen(p, ApiRequestProcessor::new));
+        } else {
+            serverBuilder.listen(DEFAULT_HTTP_PORT, ApiRequestProcessor::new);
         }
 
         return serverBuilder.build();

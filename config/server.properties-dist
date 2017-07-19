@@ -2,8 +2,8 @@
 # Administrative console port
 server.port.admin=9051
 
-# One or more HTTP listener ports
-server.port.api=8081
+# One or more comma separated HTTP listener ports
+server.port.api=8081,8082
 
 # Database connection parameters
 jdbc.driver=oracle.jdbc.OracleDriver
