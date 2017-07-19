@@ -20,7 +20,7 @@ public final class ApiHandlerFactory {
         ApiHandler handler = null;
         switch (requestType) {
             case CREATE:
-                handler = new CreateClientHandler();
+                handler = new RegisterClientHandler();
                 break;
 
             case QUERY_BALANCE:

@@ -1,7 +1,5 @@
 package net.chubarov.trial.evotor.protocol;
 
-import java.util.Objects;
-
 /**
  * <p>TODO add documentation...</p>
  *
@@ -9,13 +7,18 @@ import java.util.Objects;
  * @since 1.0.0
  */
 public class ApiResponse extends ApiData {
-    private final ApiErrorCode errorCode;
+    private ApiErrorCode errorCode = ApiErrorCode.OK;
 
-    public ApiResponse(ApiErrorCode errorCode) {
-        this.errorCode = Objects.requireNonNull(errorCode);
+    public ApiErrorCode getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(ApiErrorCode errorCode) {
+        this.errorCode = errorCode;
     }
 
     public String toXml() {
+
         String lf = System.getProperty("line.separator", "\n");
         StringBuilder xmlBuilder = new StringBuilder()
                 .append("<?xml version=\"1.0\" encoding=\"utf-8\">").append(lf)

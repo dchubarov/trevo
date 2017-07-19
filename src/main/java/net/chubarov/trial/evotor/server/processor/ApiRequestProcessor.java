@@ -26,9 +26,12 @@ public class ApiRequestProcessor extends HttpRequestProcessor {
 
         // разобрать запрос от клиента
         ApiRequest request = ApiRequestParser.parse(requestBody);
-        logger.fine("Получен бизнес запрос: " + request);
+        if (request == null) {
+            return HttpStatus.BAD_REQUEST;
+        }
 
         // получить бизнес-обработчик по виду запроса и обработать запрос
+        logger.fine("Получен бизнес запрос: " + request);
         ApiHandler handler = ApiHandlerFactory.getHandler(request);
         if (handler != null) {
             Connection connection = server.getConnectionPool().borrow();
