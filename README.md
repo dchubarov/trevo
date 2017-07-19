@@ -68,7 +68,7 @@ curl -X POST \
 </request>'
 ```
 
-Коллекция запросов для [Postman](https://www.getpostman.com])
+Коллекция запросов для [Postman](https://www.getpostman.com)
 находится в файле `src/main/scripts/tests-postman.json`.
 
 ### Нагрузочное тестирование
