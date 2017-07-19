@@ -24,7 +24,7 @@
 					"enabled": true
 				}
 			],
-			"url": "localhost:8083/",
+			"url": "localhost:8081/",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -36,7 +36,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500469859460,
+			"time": 1500493831032,
 			"name": "Query-Balance (FINE)",
 			"description": "",
 			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
@@ -54,7 +54,7 @@
 					"enabled": true
 				}
 			],
-			"url": "localhost:8085/",
+			"url": "localhost:8081/",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -65,7 +65,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500470205467,
+			"time": 1500493848966,
 			"name": "Register-Client (MALFORMED)",
 			"description": "",
 			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
@@ -83,7 +83,7 @@
 					"enabled": true
 				}
 			],
-			"url": "localhost:8085/",
+			"url": "localhost:8081/",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -95,7 +95,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500470161063,
+			"time": 1500493838729,
 			"name": "Query-Balance (BAD PASSWORD)",
 			"description": "",
 			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
@@ -113,7 +113,7 @@
 					"enabled": true
 				}
 			],
-			"url": "localhost:8083",
+			"url": "localhost:8081",
 			"queryParams": [],
 			"preRequestScript": null,
 			"pathVariables": {},
@@ -124,12 +124,12 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1500470163402,
+			"time": 1500493814550,
 			"name": "Register-Client (FINE)",
 			"description": "",
 			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
 			"responses": [],
-			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<request>\n\t<request-type>CREATE-AGT</request-type>\n\t<extra name=\"login\">garga</extra>\n\t<extra name=\"password\">nippel</extra>\n</request>\n"
+			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<request>\n\t<request-type>CREATE-AGT</request-type>\n\t<extra name=\"login\">dchubarov</extra>\n\t<extra name=\"password\">nopasaran</extra>\n</request>\n"
 		}
 	]
 }
