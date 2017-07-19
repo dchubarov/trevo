@@ -1,0 +1,135 @@
+{
+	"id": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
+	"name": "trial-evotor",
+	"description": "",
+	"order": [
+		"f0bd2bdd-558d-032d-2a58-9ba4ff004021",
+		"0928d1c6-0455-d760-2382-158dc7ade73e",
+		"c6bbd402-8161-f3e7-b39e-5c469382c90e",
+		"487acde1-4e0e-037d-0355-70e2b26442fd"
+	],
+	"folders": [],
+	"timestamp": 1500469635154,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "0928d1c6-0455-d760-2382-158dc7ade73e",
+			"headers": "Content-Type: text/xml\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "text/xml",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8083/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500469859460,
+			"name": "Query-Balance (FINE)",
+			"description": "",
+			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
+			"responses": [],
+			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<request>\n\t<request-type>GET-BALANCE</request-type>\n\t<extra name=\"login\">dchubarov</extra>\n\t<extra name=\"password\">nopasaran</extra>\n</request>\n"
+		},
+		{
+			"id": "487acde1-4e0e-037d-0355-70e2b26442fd",
+			"headers": "Content-Type: text/xml\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "text/xml",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8085/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500470205467,
+			"name": "Register-Client (MALFORMED)",
+			"description": "",
+			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
+			"responses": [],
+			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<quest>\n\t<request-type>CREATE-AGT</request-type>\n\t<extra name=\"login\">garga</extra>\n\t<extra name=\"password\">nippel</extra>\n</quest>\n"
+		},
+		{
+			"id": "c6bbd402-8161-f3e7-b39e-5c469382c90e",
+			"headers": "Content-Type: text/xml\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "text/xml",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8085/",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500470161063,
+			"name": "Query-Balance (BAD PASSWORD)",
+			"description": "",
+			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
+			"responses": [],
+			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<request>\n\t<request-type>GET-BALANCE</request-type>\n\t<extra name=\"login\">dchubarov</extra>\n\t<extra name=\"password\">netotparol</extra>\n</request>\n"
+		},
+		{
+			"id": "f0bd2bdd-558d-032d-2a58-9ba4ff004021",
+			"headers": "Content-Type: text/xml\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "text/xml",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "localhost:8083",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1500470163402,
+			"name": "Register-Client (FINE)",
+			"description": "",
+			"collectionId": "7f83f7b8-c58c-99bd-a772-171c2ad63499",
+			"responses": [],
+			"rawModeData": "<?xml version=\"1.0\" encoding=\"utf-8\" ?>\n<request>\n\t<request-type>CREATE-AGT</request-type>\n\t<extra name=\"login\">garga</extra>\n\t<extra name=\"password\">nippel</extra>\n</request>\n"
+		}
+	]
+}
