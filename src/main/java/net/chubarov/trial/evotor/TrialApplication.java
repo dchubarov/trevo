@@ -5,9 +5,13 @@ import net.chubarov.trial.evotor.server.ToyServer;
 import net.chubarov.trial.evotor.server.processor.ApiRequestProcessor;
 import net.chubarov.trial.evotor.server.processor.ShutdownRequestProcessor;
 
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.Properties;
+import java.util.concurrent.Executors;
+import java.util.logging.Level;
 import java.util.logging.LogManager;
+import java.util.logging.Logger;
+import java.util.stream.Stream;
 
 /**
  * <p>TODO add documentation...</p>
@@ -16,26 +20,73 @@ import java.util.logging.LogManager;
  * @since 1.0.0
  */
 public class TrialApplication {
+    private static final Logger logger = Logger.getLogger(TrialApplication.class.getSimpleName());
+
+    private static final String DEFAULT_CONFIG_FILE = "config/server.properties";
+    private static final int DEFAULT_CONNECTION_POOL_SIZE = 10;
+    private static final int DEFAULT_ADMIN_PORT = 9050;
+    private static final int DEFAULT_HTTP_PORT = 8080;
 
     public static void main(String[] args) {
         configureLogging();
-
-        ToyServer server = new ToyServer.Builder()
-                .listen(8080, ApiRequestProcessor::new)
-                .listen(9050, ShutdownRequestProcessor::new)
-                .withConnectionPool(createConnectionPool())
-                .build();
-
-        server.startup();
+        try {
+            ToyServer server = createServer(args.length < 1 ? DEFAULT_CONFIG_FILE : args[0]);
+            server.startup();
+        } catch (Throwable e) {
+            logger.log(Level.SEVERE, "Ошибка запуска сервера.", e);
+        }
     }
 
-    private static JdbcConnectionPool createConnectionPool() {
-        return new JdbcConnectionPool(
-                "oracle.jdbc.OracleDriver",
-                "jdbc:oracle:thin:@//10.31.10.21:1521/SIRIUSDEV",
-                "SIRIUS_9_DA_CLIENT",
-                "q1",
-                10);
+    private static ToyServer createServer(String configFile) throws Exception {
+        Properties configuration = loadConfiguration(configFile);
+
+        // создаем пул соединений БД
+        JdbcConnectionPool connectionPool = new JdbcConnectionPool(
+                configuration.getProperty("jdbc.driver"),
+                configuration.getProperty("jdbc.url"),
+                configuration.getProperty("jdbc.user"),
+                configuration.getProperty("jdbc.password"),
+                getIntegerProperty(configuration, "jdbc.pool.size",
+                        DEFAULT_CONNECTION_POOL_SIZE));
+
+        // базовые компоненты сервера
+        ToyServer.Builder serverBuilder = new ToyServer.Builder()
+                .withThreadPool(Executors.newCachedThreadPool())
+                .withConnectionPool(connectionPool);
+
+        // добавляем слушатель административного порта
+        int adminPort = getIntegerProperty(configuration, "server.port.admin", DEFAULT_ADMIN_PORT);
+        serverBuilder.listen(adminPort, ShutdownRequestProcessor::new);
+
+        // добавляем слушателей HTTP портов
+        String httpPorts = configuration.getProperty("server.port.api");
+        if (httpPorts == null || httpPorts.isEmpty()) {
+            serverBuilder.listen(DEFAULT_HTTP_PORT, ApiRequestProcessor::new);
+        } else {
+            Stream.of(httpPorts.split(",")).mapToInt(Integer::parseInt)
+                    .forEach(p -> serverBuilder.listen(p, ApiRequestProcessor::new));
+        }
+
+        return serverBuilder.build();
+    }
+
+    private static Properties loadConfiguration(String configFile) throws IOException {
+        logger.info("Конфигурационный файл: " + configFile);
+        try (Reader reader = new InputStreamReader(new FileInputStream(configFile))) {
+            Properties properties = new Properties();
+            properties.load(reader);
+            return properties;
+        }
+    }
+
+    private static int getIntegerProperty(Properties configuration, String name, int def) {
+        String value = configuration.getProperty(name);
+        if (value != null && !value.isEmpty()) {
+            try {
+                return Integer.parseInt(value);
+            } catch (NumberFormatException ignore) { }
+        }
+        return def;
     }
 
     private static void configureLogging() {
