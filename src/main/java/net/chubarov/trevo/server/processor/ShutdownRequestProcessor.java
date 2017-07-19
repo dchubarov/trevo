@@ -1,6 +1,6 @@
-package net.chubarov.trial.evotor.server.processor;
+package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trial.evotor.server.ToyServer;
+import net.chubarov.trevo.server.ToyServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
- * <p>TODO add documentation...</p>
+ * Процессор запроса, реализующий протокол, состоящий из единственной
+ * команды QUIT, завершающей работу сервера.
  *
  * @author Dmitry Chubarov
  * @since 1.0.0

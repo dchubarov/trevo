@@ -1,4 +1,4 @@
-package net.chubarov.trial.evotor.protocol;
+package net.chubarov.trevo.protocol;
 
 import org.junit.Test;
 
@@ -7,10 +7,9 @@ import static org.junit.Assert.assertNotNull;
 
 
 /**
- * <p>TODO add documentation...</p>
+ * Тесты разбора бизнес-запросов.
  *
  * @author Dmitry Chubarov
- * @since 1.0.0
  */
 public class ApiRequestParserTest {
 

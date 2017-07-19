@@ -1,6 +1,6 @@
-package net.chubarov.trial.evotor.server.processor;
+package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trial.evotor.server.ToyServer;
+import net.chubarov.trevo.server.ToyServer;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -11,7 +11,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Обрабочик запросов реализующий подмножество протокола HTTP.
+ * Базовый обработчик для поддержки сервером HTTP-протокола.
+ *
+ * <ul>
+ *     <li>Читает и валидирует метод HTTP-запроса.</li>
+ *     <li>Читает заголовки HTTP-запроса.</li>
+ *     <li>Читает тело POST-запроса при его наличии.</li>
+ *     <li>Отправляет корректный HTTP-ответ, состоящий из статуса, заголовков и тела ответа.</li>
+ * </ul>
  *
  * @author Dmitry Chubarov
  * @since 1.0.0
@@ -32,8 +39,7 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
 
     /**
      * Дочерний класс должен реализовать этот метод для обработки данных HTTP-запроса.
-     *
-     * @param server
+     * @param server сервер, которому поступил запрос
      * @param requestHeaders карта содержащая заголовки запроса.
      * @param requestBody строка содержащая тело запроса или {@code null}.
      * @param responseHeaders карта в которую следует поместить заголовки ответа при необходимости.

@@ -1,4 +1,4 @@
-package net.chubarov.trial.evotor.protocol;
+package net.chubarov.trevo.protocol;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <p>TODO add documentation...</p>
+ * Разбирает текст запроса в объект данных ({@link ApiRequest}).
  *
  * @author Dmitry Chubarov
  * @since 1.0.0
@@ -24,6 +24,12 @@ public final class ApiRequestParser {
     /** Предотвращает создание экземпляров класса */
     private ApiRequestParser() {}
 
+    /**
+     * Хотя используемая реализация SAX-парсера (Xerces) является потокобезопасной,
+     * она тем не менее содержит внутренние блокировки, приводящие к значительной
+     * гонке потоков за разделяемый ресурс. Поэтому используется один экземпляр
+     * парсера на поток.
+     */
     private static final ThreadLocal<SAXParser> threadLocalParser = new ThreadLocal<SAXParser>() {
         @Override
         protected SAXParser initialValue() {
@@ -37,6 +43,11 @@ public final class ApiRequestParser {
         }
     };
 
+    /**
+     * Разбирает текст запроса в формате XML и возвращает новый {@link ApiRequest}.
+     * @param xml текст запроса.
+     * @return объект данных или {@code null} если XML не валиден.
+     */
     public static ApiRequest parse(String xml) {
         try {
             InputSource xmlSource = new InputSource(new StringReader(xml));

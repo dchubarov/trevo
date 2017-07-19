@@ -5,16 +5,16 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>net.chubarov.trial</groupId>
-  <artifactId>trial-evotor</artifactId>
+  <groupId>net.chubarov.trevo</groupId>
+  <artifactId>trevo</artifactId>
   <version>1.0.0-SNAPSHOT</version>
 
   <properties>
-    <maven.compiler.source>8</maven.compiler.source>
-    <maven.compiler.target>8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <junit.version>4.12</junit.version>
+    <ojdbc6.version>10.2.0.3-nts-1.0</ojdbc6.version>
     <xerces.version>2.11.0</xerces.version>
-    <ojdbc6.version>11.2.0.3</ojdbc6.version>
   </properties>
 
   <dependencies>
@@ -25,16 +25,17 @@
       <version>${junit.version}</version>
     </dependency>
 
-    <!-- Runtime dependencies -->
+    <!-- Runtime-only dependencies -->
     <dependency>
       <groupId>jdbc</groupId>
       <artifactId>jdbc-oracle</artifactId>
-      <version>10.2.0.3-nts-1.0</version>
+      <version>${ojdbc6.version}</version>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>xerces</groupId>
       <artifactId>xercesImpl</artifactId>
-      <version>2.11.0</version>
+      <version>${xerces.version}</version>
       <scope>runtime</scope>
     </dependency>
   </dependencies>

@@ -1,8 +1,8 @@
-package net.chubarov.trial.evotor.handler;
+package net.chubarov.trevo.handler;
 
-import net.chubarov.trial.evotor.protocol.ApiErrorCode;
-import net.chubarov.trial.evotor.protocol.ApiRequest;
-import net.chubarov.trial.evotor.protocol.ApiResponse;
+import net.chubarov.trevo.protocol.ApiStatusCode;
+import net.chubarov.trevo.protocol.ApiRequest;
+import net.chubarov.trevo.protocol.ApiResponse;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -13,7 +13,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Обработчик запроса баланса.
+ * Обработчик бизнес запроса 'GET-BALANCE'.
+ *
+ * <p>Находит в БД пользователя по его регистрационному имени, проверяет, что пароль
+ * переданный в запросе соответствует тому, который хранится в БД и в случае успеха
+ * возвращает значение баланса.</p>
  *
  * @author Dmitry Chubarov
  * @since 1.0.0
@@ -34,16 +38,16 @@ class QueryBalanceHandler implements ApiHandler {
                         response.putProperty("balance", balance.toPlainString());
                     } else {
                         // пароль запроса не совпадает с таковым в БД
-                        response.setErrorCode(ApiErrorCode.INVALID_PASSWORD);
+                        response.setStatusCode(ApiStatusCode.INVALID_PASSWORD);
                     }
                 } else {
                     // возвращен пустой набор результатов - пользователь не существует
-                    response.setErrorCode(ApiErrorCode.NOT_EXISTS);
+                    response.setStatusCode(ApiStatusCode.NOT_EXISTS);
                 }
             }
         } catch (Throwable e) {
             logger.log(Level.WARNING, "Ошибка при выполнении операции с БД.", e);
-            response.setErrorCode(ApiErrorCode.TECHNICAL_ERROR);
+            response.setStatusCode(ApiStatusCode.TECHNICAL_ERROR);
         }
 
         return response;

@@ -1,4 +1,4 @@
-package net.chubarov.trial.evotor.jdbc;
+package net.chubarov.trevo.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,6 +23,14 @@ public class SimpleConnectionPool implements ConnectionPool {
     private final String user;
     private final String password;
 
+    /**
+     * Создает новый экземпляр {@link SimpleConnectionPool}.
+     * @param driver полное имя класса драйвера JDBC.
+     * @param url строка подключения к БД.
+     * @param user пользователь БД.
+     * @param password пароль пользователя БД.
+     * @param initialPoolSize количество соединений для начального резервирования.
+     */
     public SimpleConnectionPool(String driver, String url, String user, String password, int initialPoolSize) {
         this.url = url;
         this.user = user;

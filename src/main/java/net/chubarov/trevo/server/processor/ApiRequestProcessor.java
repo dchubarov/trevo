@@ -1,18 +1,24 @@
-package net.chubarov.trial.evotor.server.processor;
+package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trial.evotor.handler.ApiHandler;
-import net.chubarov.trial.evotor.handler.ApiHandlerFactory;
-import net.chubarov.trial.evotor.protocol.ApiRequest;
-import net.chubarov.trial.evotor.protocol.ApiRequestParser;
-import net.chubarov.trial.evotor.protocol.ApiResponse;
-import net.chubarov.trial.evotor.server.ToyServer;
+import net.chubarov.trevo.handler.ApiHandler;
+import net.chubarov.trevo.handler.ApiHandlerFactory;
+import net.chubarov.trevo.protocol.ApiRequest;
+import net.chubarov.trevo.protocol.ApiResponse;
+import net.chubarov.trevo.server.ToyServer;
+import net.chubarov.trevo.protocol.ApiRequestParser;
 
 import java.sql.Connection;
 import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * <p>TODO add documentation...</p>
+ * Верхнеуровневый процессор, извлекающий бизнес-запрос из HTTP, и использующий
+ * обработчики для выполнения запроса. Возвращает клиенту XML-ответ.
+ *
+ * @see ApiRequest
+ * @see ApiHandler
+ * @see ApiHandlerFactory
+ * @see ApiResponse
  *
  * @author Dmitry Chubarov
  * @since 1.0.0

@@ -1,10 +1,12 @@
-package net.chubarov.trial.evotor.protocol;
+package net.chubarov.trevo.protocol;
 
 import java.util.stream.Stream;
 
 /**
- * <p>TODO add documentation...</p>
+ * Известные типы бизнес-запросов.
+ *
  * @author Dmitry Chubarov
+ * @since 1.0.0
  */
 public enum ApiRequestType {
 
@@ -20,10 +22,17 @@ public enum ApiRequestType {
         this.text = text;
     }
 
+    /**
+     * @return имя запроса по спецификации протокола обмена.
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * Возвращает константу по имени запроса из спецификации протокола.
+     * @return константа, соответствующая данному имени или {@code null} если соответствие не найдено.
+     */
     public static ApiRequestType of(String text) {
         return Stream.of(values()).filter(v -> v.text.equals(text)).findFirst().orElse(null);
     }

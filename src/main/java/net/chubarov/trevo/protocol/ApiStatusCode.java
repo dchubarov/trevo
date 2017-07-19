@@ -1,12 +1,12 @@
-package net.chubarov.trial.evotor.protocol;
+package net.chubarov.trevo.protocol;
 
 /**
- * <p>TODO add documentation...</p>
+ * Возможные коды состояния и их числовые значения, соответствующие спецификации протокола обмена.
  *
  * @author Dmitry Chubarov
  * @since 1.0.0
  */
-public enum ApiErrorCode {
+public enum ApiStatusCode {
 
     /** Успешное завершение */
     OK(0),
@@ -25,10 +25,13 @@ public enum ApiErrorCode {
 
     private final int code;
 
-    ApiErrorCode(int code) {
+    ApiStatusCode(int code) {
         this.code = code;
     }
 
+    /**
+     * @return числовой код
+     */
     public int getCode() {
         return code;
     }

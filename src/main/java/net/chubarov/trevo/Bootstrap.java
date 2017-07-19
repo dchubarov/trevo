@@ -1,9 +1,9 @@
-package net.chubarov.trial.evotor;
+package net.chubarov.trevo;
 
-import net.chubarov.trial.evotor.jdbc.SimpleConnectionPool;
-import net.chubarov.trial.evotor.server.ToyServer;
-import net.chubarov.trial.evotor.server.processor.ApiRequestProcessor;
-import net.chubarov.trial.evotor.server.processor.ShutdownRequestProcessor;
+import net.chubarov.trevo.jdbc.SimpleConnectionPool;
+import net.chubarov.trevo.server.ToyServer;
+import net.chubarov.trevo.server.processor.ApiRequestProcessor;
+import net.chubarov.trevo.server.processor.ShutdownRequestProcessor;
 
 import java.io.*;
 import java.util.Properties;
@@ -14,13 +14,13 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 /**
- * <p>TODO add documentation...</p>
+ * Пусковой класс сервера.
  *
  * @author Dmitry Chubarov
  * @since 1.0.0
  */
-public class TrialApplication {
-    private static final Logger logger = Logger.getLogger(TrialApplication.class.getSimpleName());
+public class Bootstrap {
+    private static final Logger logger = Logger.getLogger(Bootstrap.class.getSimpleName());
 
     private static final String DEFAULT_CONFIG_FILE = "config/server.properties";
     private static final int DEFAULT_CONNECTION_POOL_SIZE = 10;
@@ -30,7 +30,8 @@ public class TrialApplication {
     public static void main(String[] args) {
         configureLogging();
         try {
-            ToyServer server = createServer(args.length < 1 ? DEFAULT_CONFIG_FILE : args[0]);
+            String configPath = (args.length < 1 ? DEFAULT_CONFIG_FILE : args[0]);
+            ToyServer server = createServer(configPath);
             server.startup();
         } catch (Throwable e) {
             logger.log(Level.SEVERE, "Ошибка запуска сервера.", e);
@@ -90,7 +91,7 @@ public class TrialApplication {
     }
 
     private static void configureLogging() {
-        try (InputStream is = TrialApplication.class.getResourceAsStream("/logging.properties")) {
+        try (InputStream is = Bootstrap.class.getResourceAsStream("/logging.properties")) {
             LogManager.getLogManager().readConfiguration(is);
         } catch (IOException e) {
             System.err.println("Ошибка загрузки конфигурации логгера: " + e.getLocalizedMessage());
