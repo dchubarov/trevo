@@ -9,4 +9,6 @@
 target/
 out/
 
-config/*server*.properties
+# local server configurations
+server.properties
+load*.properties

@@ -22,7 +22,7 @@ import java.util.stream.Stream;
 public class Bootstrap {
     private static final Logger logger = Logger.getLogger(Bootstrap.class.getSimpleName());
 
-    private static final String DEFAULT_CONFIG_FILE = "config/server.properties";
+    private static final String DEFAULT_CONFIG_FILE = "server.properties";
     private static final int DEFAULT_CONNECTION_POOL_SIZE = 10;
     private static final int DEFAULT_ADMIN_PORT = 9050;
     private static final int DEFAULT_HTTP_PORT = 8080;
