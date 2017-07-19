@@ -20,7 +20,7 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
 
     // названия заголовков HTTP
     private static final String CONTENT_LENGTH = "content-length";
-    private static final String CONTENT_TYPE = "Content-Type";
+    static final String CONTENT_TYPE = "Content-Type";
     private static final String CONNECTION = "Connection";
     private static final String SERVER = "Server";
     private static final String DATE = "Date";

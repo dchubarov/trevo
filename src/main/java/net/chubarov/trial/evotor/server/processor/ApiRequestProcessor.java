@@ -38,6 +38,7 @@ public class ApiRequestProcessor extends HttpRequestProcessor {
             try {
                 ApiResponse response = handler.handle(request, connection);
                 if (response != null) {
+                    responseHeaders.put(CONTENT_TYPE, "text/xml");
                     responseBody[0] = response.toXml();
                     return HttpStatus.OK;
                 }

@@ -21,7 +21,6 @@ public class ApiResponse extends ApiData {
 
         String lf = System.getProperty("line.separator", "\n");
         StringBuilder xmlBuilder = new StringBuilder()
-                .append("<?xml version=\"1.0\" encoding=\"utf-8\">").append(lf)
                 .append("<response>").append(lf)
                 .append("  <result-code>").append(errorCode.getCode()).append("</result-code>").append(lf);
 
