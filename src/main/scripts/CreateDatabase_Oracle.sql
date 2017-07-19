@@ -61,9 +61,11 @@ CREATE OR REPLACE PACKAGE BODY CLIENT_PKG IS
     INSERT INTO CLIENT(CLIENT_ID, LOGIN, PASSWORD) VALUES (result, login, pwd);
   EXCEPTION
     WHEN OTHERS THEN
+      -- suppress unique key violation exception
       IF sqlcode != -1 THEN
         RAISE;
       END IF;
+      -- zero result means that client identified by login already exists
       result := 0;
   END;
 END CLIENT_PKG;
