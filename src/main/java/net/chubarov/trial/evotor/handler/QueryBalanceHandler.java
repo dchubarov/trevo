@@ -13,8 +13,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <p>TODO add documentation...</p>
+ * Обработчик запроса баланса.
+ *
  * @author Dmitry Chubarov
+ * @since 1.0.0
  */
 class QueryBalanceHandler implements ApiHandler {
     private static final Logger logger = Logger.getLogger(RegisterClientHandler.class.getSimpleName());

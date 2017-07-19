@@ -14,8 +14,8 @@ import java.util.logging.Logger;
  * @author Dmitry Chubarov
  * @since 1.0.0
  */
-public class JdbcConnectionPool {
-    private static final Logger logger = Logger.getLogger(JdbcConnectionPool.class.getSimpleName());
+public class SimpleConnectionPool implements ConnectionPool {
+    private static final Logger logger = Logger.getLogger(SimpleConnectionPool.class.getSimpleName());
 
     private final List<Connection> available = new LinkedList<>();
     private final List<Connection> used = new LinkedList<>();
@@ -23,7 +23,7 @@ public class JdbcConnectionPool {
     private final String user;
     private final String password;
 
-    public JdbcConnectionPool(String driver, String url, String user, String password, int initialPoolSize) {
+    public SimpleConnectionPool(String driver, String url, String user, String password, int initialPoolSize) {
         this.url = url;
         this.user = user;
         this.password = password;
@@ -37,6 +37,7 @@ public class JdbcConnectionPool {
         initialize(initialPoolSize);
     }
 
+    @Override
     public synchronized Connection borrow() {
         Connection connection = null;
         try {
@@ -48,6 +49,7 @@ public class JdbcConnectionPool {
         return connection;
     }
 
+    @Override
     public synchronized void release(Connection connection) {
         if (connection != null) {
             if (used.remove(connection)) {
@@ -55,6 +57,22 @@ public class JdbcConnectionPool {
             } else {
                 logger.warning("Попытка возврата в пул подключения, которое не принадлежит этому пулу.");
             }
+        }
+    }
+
+    @Override
+    public void shutdown() {
+        closeAll(available);
+        closeAll(used);
+    }
+
+    private void closeAll(List<Connection> connections) {
+        if (connections != null) {
+            connections.forEach(c -> {
+                try {
+                    c.close();
+                } catch (SQLException ignore) { }
+            });
         }
     }
 

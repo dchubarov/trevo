@@ -1,6 +1,6 @@
 package net.chubarov.trial.evotor;
 
-import net.chubarov.trial.evotor.jdbc.JdbcConnectionPool;
+import net.chubarov.trial.evotor.jdbc.SimpleConnectionPool;
 import net.chubarov.trial.evotor.server.ToyServer;
 import net.chubarov.trial.evotor.server.processor.ApiRequestProcessor;
 import net.chubarov.trial.evotor.server.processor.ShutdownRequestProcessor;
@@ -41,7 +41,7 @@ public class TrialApplication {
         Properties configuration = loadConfiguration(configFile);
 
         // создаем пул соединений БД
-        JdbcConnectionPool connectionPool = new JdbcConnectionPool(
+        SimpleConnectionPool connectionPool = new SimpleConnectionPool(
                 configuration.getProperty("jdbc.driver"),
                 configuration.getProperty("jdbc.url"),
                 configuration.getProperty("jdbc.user"),

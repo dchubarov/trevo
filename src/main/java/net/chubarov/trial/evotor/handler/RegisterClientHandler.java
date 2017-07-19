@@ -11,7 +11,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * <p>TODO add documentation...</p>
+ * Обработчик запроса регистрации клиента.
+ *
+ * <p>Используется специфика Oracle.</p>
  *
  * @author Dmitry Chubarov
  * @since 1.0.0

@@ -1,6 +1,6 @@
 package net.chubarov.trial.evotor.server;
 
-import net.chubarov.trial.evotor.jdbc.JdbcConnectionPool;
+import net.chubarov.trial.evotor.jdbc.SimpleConnectionPool;
 import net.chubarov.trial.evotor.server.processor.RequestProcessor;
 
 import java.io.IOException;
@@ -31,7 +31,7 @@ public class ToyServer {
     private final AtomicBoolean shutdownRequested = new AtomicBoolean(false);
     private CountDownLatch runningListenerLatch;
     private ExecutorService executorService;
-    private JdbcConnectionPool jdbcPool;
+    private SimpleConnectionPool jdbcPool;
 
     /**
      * Констуктор вызывается только построителем.
@@ -74,7 +74,7 @@ public class ToyServer {
         shutdownRequested.compareAndSet(false, true);
     }
 
-    public JdbcConnectionPool getConnectionPool() {
+    public SimpleConnectionPool getConnectionPool() {
         return jdbcPool;
     }
 
@@ -93,6 +93,9 @@ public class ToyServer {
         if (!executorService.isTerminated()) {
             executorService.shutdownNow();
         }
+
+        // закрываем соединения JDBC
+        jdbcPool.shutdown();
 
         // с большой вероятностью логгеры здесь уже не работают, выводит окончательное сообщение в консоль
         System.out.println("Работа сервера завершена.");
@@ -135,7 +138,7 @@ public class ToyServer {
             return this;
         }
 
-        public Builder withConnectionPool(JdbcConnectionPool jdbcPool) {
+        public Builder withConnectionPool(SimpleConnectionPool jdbcPool) {
             getPrototype().jdbcPool = Objects.requireNonNull(jdbcPool);
             return this;
         }
