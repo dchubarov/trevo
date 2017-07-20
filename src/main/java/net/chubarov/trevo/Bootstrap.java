@@ -1,7 +1,7 @@
 package net.chubarov.trevo;
 
 import net.chubarov.trevo.jdbc.SimpleConnectionPool;
-import net.chubarov.trevo.server.TrevoServer;
+import net.chubarov.trevo.server.NetworkServer;
 import net.chubarov.trevo.server.processor.ApiRequestProcessor;
 import net.chubarov.trevo.server.processor.ShutdownRequestProcessor;
 
@@ -31,14 +31,14 @@ public class Bootstrap {
         configureLogging();
         try {
             String configPath = (args.length < 1 ? DEFAULT_CONFIG_FILE : args[0]);
-            TrevoServer server = createServer(configPath);
+            NetworkServer server = createServer(configPath);
             server.startup();
         } catch (Throwable e) {
             logger.log(Level.SEVERE, "Ошибка запуска сервера.", e);
         }
     }
 
-    private static TrevoServer createServer(String configFile) throws Exception {
+    private static NetworkServer createServer(String configFile) throws Exception {
         Properties configuration = loadConfiguration(configFile);
 
         // создаем пул соединений БД
@@ -51,7 +51,7 @@ public class Bootstrap {
                         DEFAULT_CONNECTION_POOL_SIZE));
 
         // базовые компоненты сервера
-        TrevoServer.Builder serverBuilder = new TrevoServer.Builder()
+        NetworkServer.Builder serverBuilder = new NetworkServer.Builder()
                 .withThreadPool(Executors.newCachedThreadPool())
                 .withConnectionPool(connectionPool);
 

@@ -4,7 +4,7 @@ import net.chubarov.trevo.handler.ApiHandler;
 import net.chubarov.trevo.handler.ApiHandlerFactory;
 import net.chubarov.trevo.protocol.ApiRequest;
 import net.chubarov.trevo.protocol.ApiResponse;
-import net.chubarov.trevo.server.TrevoServer;
+import net.chubarov.trevo.server.NetworkServer;
 import net.chubarov.trevo.protocol.ApiRequestParser;
 
 import java.sql.Connection;
@@ -27,7 +27,7 @@ public class ApiRequestProcessor extends HttpRequestProcessor {
     private static final Logger logger = Logger.getLogger(ApiRequestProcessor.class.getSimpleName());
 
     @Override
-    protected HttpStatus processHttpRequest(TrevoServer server, Map<String, String> requestHeaders, String requestBody,
+    protected HttpStatus processHttpRequest(NetworkServer server, Map<String, String> requestHeaders, String requestBody,
             Map<String, String> responseHeaders, String[] responseBody) {
 
         // разобрать запрос от клиента

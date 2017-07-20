@@ -1,14 +1,14 @@
 package net.chubarov.trevo.server.processor;
 
-import net.chubarov.trevo.server.TrevoServer;
+import net.chubarov.trevo.server.NetworkServer;
 
 import java.io.*;
 import java.net.Socket;
 
 /**
  * Абстрактный процессор запроса обрабатывающий текстовые данные, поступающие от клиента построчно.
- * Классы-наследники не могут переопределить метод {@link RequestProcessor#process(TrevoServer, Socket)},
- * они должны вместо этого реализовать метод {@link #processRequest(TrevoServer, BufferedReader, BufferedWriter)},
+ * Классы-наследники не могут переопределить метод {@link RequestProcessor#process(NetworkServer, Socket)},
+ * они должны вместо этого реализовать метод {@link #processRequest(NetworkServer, BufferedReader, BufferedWriter)},
  * позволяющий использовать {@code BufferedReader} и {@code BufferedWriter} для чтения/записи данных.
  *
  * @author Dmitry Chubarov
@@ -23,11 +23,11 @@ public abstract class LineRequestProcessor implements RequestProcessor {
      * @param responseWriter писатель выходного потока данных.
      * @throws IOException если в процессе обмена данными произошла ошибка.
      */
-    protected abstract void processRequest(TrevoServer server, BufferedReader requestReader,
+    protected abstract void processRequest(NetworkServer server, BufferedReader requestReader,
             BufferedWriter responseWriter) throws IOException;
 
     @Override
-    public final void process(TrevoServer server, Socket socket) throws IOException {
+    public final void process(NetworkServer server, Socket socket) throws IOException {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()))) {
             processRequest(server, reader, writer);
