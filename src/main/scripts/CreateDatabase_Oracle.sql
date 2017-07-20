@@ -47,7 +47,7 @@ ALTER TABLE CLIENT ADD CONSTRAINT CLIENT_PK PRIMARY KEY (CLIENT_ID)
 CREATE UNIQUE INDEX IX_CLIENT_LOGIN ON CLIENT (LOGIN);
 
 --------------------------------------------------------
---  Function: CREATE_CLIENT
+--  Package: CREATE_PKG
 --------------------------------------------------------
 CREATE OR REPLACE PACKAGE CLIENT_PKG IS
   PROCEDURE register (login IN VARCHAR2, pwd IN VARCHAR2, result OUT NUMBER);

@@ -64,12 +64,12 @@ public class Bootstrap {
 
         // добавляем слушателей HTTP портов
         String httpPorts = configuration.getProperty("server.port.api");
+        Supplier<RequestProcessor> processorSupplier = ApiRequestProcessor::new;
         if (NullSafe.nonEmpty(httpPorts)) {
-            Supplier<RequestProcessor> processorSupplier = ApiRequestProcessor::new;
             Stream.of(httpPorts.split(",")).mapToInt(Integer::parseInt)
                     .forEach(p -> serverBuilder.listen(p, processorSupplier));
         } else {
-            serverBuilder.listen(DEFAULT_HTTP_PORT, ApiRequestProcessor::new);
+            serverBuilder.listen(DEFAULT_HTTP_PORT, processorSupplier);
         }
 
         return serverBuilder.build();
