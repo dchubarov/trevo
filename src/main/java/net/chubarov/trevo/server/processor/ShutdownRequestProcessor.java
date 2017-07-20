@@ -23,7 +23,7 @@ public class ShutdownRequestProcessor extends LineRequestProcessor {
         String line = requestReader.readLine();
         if ("QUIT".equals(line)) {
             logger.info("Получена команда QUIT, инициируем остановку сервера.");
-            responseWriter.write("OK");
+            responseWriter.write("BYE");
             server.requestShutdown();
         }
     }

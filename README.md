@@ -90,6 +90,6 @@ $ telnet localhost 9051
 Connected to localhost.
 Escape character is '^]'.
 QUIT
-OK
+BYE
 Connection closed by foreign host.
 ```
