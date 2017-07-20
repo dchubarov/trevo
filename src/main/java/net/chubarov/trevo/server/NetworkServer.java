@@ -3,6 +3,7 @@ package net.chubarov.trevo.server;
 import net.chubarov.trevo.jdbc.ConnectionPool;
 import net.chubarov.trevo.jdbc.SimpleConnectionPool;
 import net.chubarov.trevo.server.processor.RequestProcessor;
+import net.chubarov.trevo.util.NullSafe;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -200,7 +201,7 @@ public class NetworkServer {
             NetworkServer instance = getPrototype();
 
             // сервер не может работать не открывая портов
-            if (instance.ports.isEmpty()) {
+            if (NullSafe.isEmpty(instance.ports)) {
                 throw new IllegalStateException("Не задан ни один порт для прослушивания.");
             }
 

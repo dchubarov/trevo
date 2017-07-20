@@ -21,17 +21,17 @@ class RegisterClientHandler implements ApiHandler {
     private static final Logger logger = Logger.getLogger(RegisterClientHandler.class.getSimpleName());
 
     /** Внутренний номер числового типа драйвера Oracle */
-    private static final int ORACLE_NUMBER = 2;
+    private static final int ORACLE_NUMERIC_TYPE = 2;
 
     @Override
     public ApiResponse handle(ApiRequest request, Connection connection) {
         ApiResponse response = new ApiResponse();
-        String sql = "{CALL CLIENT_PKG.REGISTER(?, ?, ?)}";
+        String sql = "{ CALL CLIENT_PKG.REGISTER(?, ?, ?) }";
         try (CallableStatement statement = connection.prepareCall(sql)) {
             String login = request.getProperty("login");
             statement.setString(1, login);
             statement.setString(2, request.getProperty("password"));
-            statement.registerOutParameter(3, ORACLE_NUMBER);
+            statement.registerOutParameter(3, ORACLE_NUMERIC_TYPE);
             statement.execute();
 
             int clientId = statement.getInt(3);

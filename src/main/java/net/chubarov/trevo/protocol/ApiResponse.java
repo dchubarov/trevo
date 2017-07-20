@@ -33,16 +33,15 @@ public class ApiResponse extends ApiData {
      * @return XML-представление данного объекта.
      */
     public String toXml() {
-
-        String lf = System.getProperty("line.separator", "\n");
+        String lf = System.lineSeparator();
         StringBuilder xmlBuilder = new StringBuilder()
                 .append("<response>").append(lf)
-                .append("  <result-code>").append(errorCode.getCode()).append("</result-code>").append(lf);
+                .append("  <result-code>").append(errorCode.getCode())
+                .append("</result-code>").append(lf);
 
-        for (String n : getPropertyNames()) {
-            xmlBuilder.append("  <extra name=\"").append(n).append("\">")
-                    .append(getProperty(n)).append("</extra>").append(lf);
-        }
+        getPropertyNames().forEach((n) -> xmlBuilder
+                .append("  <extra name=\"").append(n).append("\">").append(getProperty(n))
+                .append("</extra>").append(lf));
 
         return xmlBuilder.append("</response>").append(lf).toString();
     }

@@ -3,11 +3,14 @@ package net.chubarov.trevo;
 import net.chubarov.trevo.jdbc.SimpleConnectionPool;
 import net.chubarov.trevo.server.NetworkServer;
 import net.chubarov.trevo.server.processor.ApiRequestProcessor;
+import net.chubarov.trevo.server.processor.RequestProcessor;
 import net.chubarov.trevo.server.processor.ShutdownRequestProcessor;
+import net.chubarov.trevo.util.NullSafe;
 
 import java.io.*;
 import java.util.Properties;
 import java.util.concurrent.Executors;
+import java.util.function.Supplier;
 import java.util.logging.Level;
 import java.util.logging.LogManager;
 import java.util.logging.Logger;
@@ -61,9 +64,10 @@ public class Bootstrap {
 
         // добавляем слушателей HTTP портов
         String httpPorts = configuration.getProperty("server.port.api");
-        if (httpPorts != null && !httpPorts.isEmpty()) {
+        if (NullSafe.nonEmpty(httpPorts)) {
+            Supplier<RequestProcessor> processorSupplier = ApiRequestProcessor::new;
             Stream.of(httpPorts.split(",")).mapToInt(Integer::parseInt)
-                    .forEach(p -> serverBuilder.listen(p, ApiRequestProcessor::new));
+                    .forEach(p -> serverBuilder.listen(p, processorSupplier));
         } else {
             serverBuilder.listen(DEFAULT_HTTP_PORT, ApiRequestProcessor::new);
         }
@@ -82,7 +86,7 @@ public class Bootstrap {
 
     private static int getIntegerProperty(Properties configuration, String name, int def) {
         String value = configuration.getProperty(name);
-        if (value != null && !value.isEmpty()) {
+        if (NullSafe.nonEmpty(value)) {
             try {
                 return Integer.parseInt(value);
             } catch (NumberFormatException ignore) { }

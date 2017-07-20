@@ -1,6 +1,7 @@
 package net.chubarov.trevo.server.processor;
 
 import net.chubarov.trevo.server.NetworkServer;
+import net.chubarov.trevo.util.NullSafe;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -92,7 +93,7 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
             Map<String, String> requestHeaders) throws IOException {
         // прочитать строку запроса
         String cmd = requestReader.readLine();
-        if (cmd == null || cmd.isEmpty() || !(cmd.startsWith("GET") || cmd.startsWith("POST"))) {
+        if (!NullSafe.startsWithAny(cmd, "GET", "POST")) {
             return null;
         }
 
@@ -111,7 +112,7 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
                 }
                 requestHeaders.put(headerKey, headerValue);
             }
-        } while (inputLine != null && !inputLine.isEmpty());
+        } while (NullSafe.nonEmpty(inputLine));
 
         return cmd;
     }
@@ -153,7 +154,7 @@ public abstract class HttpRequestProcessor extends LineRequestProcessor {
         responseWriter.newLine();
 
         // отправляем тело ответа клиента
-        if (responseBody != null && !responseBody.isEmpty()) {
+        if (NullSafe.nonEmpty(responseBody)) {
             responseWriter.write(responseBody);
         }
     }
